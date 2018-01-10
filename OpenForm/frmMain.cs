@@ -93,5 +93,15 @@ namespace OpenForm
         {
             e.Column.FillWeight = 2;
         }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("OpenForm BETA. Created by Hoang Dinh Thinh (hoangdinhthinh@live.com). All rights reserved.");
+        }
     }
 }

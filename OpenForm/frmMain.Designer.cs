@@ -35,8 +35,6 @@
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detectNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportResultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -61,7 +59,6 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.templateToolStripMenuItem,
             this.scanToolStripMenuItem,
-            this.resultToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -98,6 +95,7 @@
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // scanToolStripMenuItem
             // 
@@ -114,20 +112,6 @@
             this.detectNowToolStripMenuItem.Text = "Detect now";
             this.detectNowToolStripMenuItem.Click += new System.EventHandler(this.detectNowToolStripMenuItem_Click);
             // 
-            // resultToolStripMenuItem
-            // 
-            this.resultToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportResultToolStripMenuItem});
-            this.resultToolStripMenuItem.Name = "resultToolStripMenuItem";
-            this.resultToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.resultToolStripMenuItem.Text = "Result";
-            // 
-            // exportResultToolStripMenuItem
-            // 
-            this.exportResultToolStripMenuItem.Name = "exportResultToolStripMenuItem";
-            this.exportResultToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.exportResultToolStripMenuItem.Text = "Export result";
-            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -139,8 +123,9 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -286,8 +271,6 @@
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem detectNowToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resultToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportResultToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem templateCreateToolStripMenuItem;
