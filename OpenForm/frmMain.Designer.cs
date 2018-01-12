@@ -37,6 +37,8 @@
             this.detectNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.actionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showDetailOfSelectedRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +50,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.openGradeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -59,6 +62,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.templateToolStripMenuItem,
             this.scanToolStripMenuItem,
+            this.actionToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -123,9 +127,25 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // actionToolStripMenuItem
+            // 
+            this.actionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showDetailOfSelectedRowToolStripMenuItem,
+            this.openGradeToolStripMenuItem});
+            this.actionToolStripMenuItem.Name = "actionToolStripMenuItem";
+            this.actionToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.actionToolStripMenuItem.Text = "Action";
+            // 
+            // showDetailOfSelectedRowToolStripMenuItem
+            // 
+            this.showDetailOfSelectedRowToolStripMenuItem.Name = "showDetailOfSelectedRowToolStripMenuItem";
+            this.showDetailOfSelectedRowToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.showDetailOfSelectedRowToolStripMenuItem.Text = "Show detail of selected row";
+            this.showDetailOfSelectedRowToolStripMenuItem.Click += new System.EventHandler(this.showDetailOfSelectedRowToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -236,11 +256,18 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "OpenForm Template|*.ofr";
+            this.openFileDialog1.Title = "Choose a template";
             // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             this.openFileDialog2.Multiselect = true;
+            // 
+            // openGradeToolStripMenuItem
+            // 
+            this.openGradeToolStripMenuItem.Name = "openGradeToolStripMenuItem";
+            this.openGradeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openGradeToolStripMenuItem.Text = "OpenGrade";
             // 
             // frmMain
             // 
@@ -286,6 +313,9 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.ToolStripMenuItem actionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showDetailOfSelectedRowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openGradeToolStripMenuItem;
     }
 }
 

@@ -19,6 +19,8 @@ namespace OpenForm
     {
         Detection.DetectionTemplate detectionTemplate;
         DataTable progressToShow;
+        Result.ResultPresenter presenter;
+
         public frmMain()
         {
             InitializeComponent();
@@ -61,7 +63,7 @@ namespace OpenForm
         {
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
             {
-                Engine.DetectionThread dThread = new Engine.DetectionThread(detectionTemplate, int.Parse(txtThreshold.Text), openFileDialog2.FileNames, updateGrid);
+                Engine.DetectionThread dThread = new Engine.DetectionThread(detectionTemplate, int.Parse(txtThreshold.Text), openFileDialog2.FileNames, updateGrid, updatePresenter);
                 ThreadStart detectThreadStart = new ThreadStart(dThread.startDetectionProcess);
                 Thread detectThread = new Thread(detectThreadStart);
 
@@ -89,6 +91,11 @@ namespace OpenForm
             this.BeginInvoke(updateGridView);
         }
 
+        private void updatePresenter(Result.ResultPresenter presenter)
+        {
+            this.presenter = presenter;
+        }
+
         private void dataGridView1_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
             e.Column.FillWeight = 2;
@@ -101,7 +108,20 @@ namespace OpenForm
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("OpenForm BETA. Created by Hoang Dinh Thinh (hoangdinhthinh@live.com). All rights reserved.");
+            MessageBox.Show("OpenForm BETA  (a parody of OpenFOAM). Created by Hoang Dinh Thinh (hoangdinhthinh@live.com). All rights reserved.");
+        }
+
+        private void showDetailOfSelectedRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+                MessageBox.Show("Please select a row in the grid first");
+            else
+            {
+                DataRow r = presenter.table.Rows[dataGridView1.SelectedRows[0].Index];
+                DataColumnCollection columns = presenter.table.Columns;
+                frmViewResponse responseView = new frmViewResponse(r, columns);
+                responseView.Show();
+            }
         }
     }
 }

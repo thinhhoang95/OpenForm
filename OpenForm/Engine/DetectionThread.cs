@@ -15,14 +15,17 @@ namespace OpenForm.Engine
         int threshold;
         string[] FileNames;
         public delegate void DetectionCallback(string filename, string result);
+        public delegate void PresentationCallback(Result.ResultPresenter presenter);
         DetectionCallback dCall;
+        PresentationCallback pCall;
 
-        public DetectionThread(Detection.DetectionTemplate dtpl, int threshold, string[] FileNames, DetectionCallback caller)
+        public DetectionThread(Detection.DetectionTemplate dtpl, int threshold, string[] FileNames, DetectionCallback caller, PresentationCallback pCall)
         {
             this.detectionTemplate = dtpl;
             this.threshold = threshold;
             this.FileNames = FileNames;
             this.dCall = caller;
+            this.pCall = pCall;
         }
 
         public void startDetectionProcess()
@@ -56,6 +59,8 @@ namespace OpenForm.Engine
             XLWorkbook wb = new XLWorkbook();
             wb.Worksheets.Add(presenter.table);
             wb.SaveAs("form.xlsx");
+
+            pCall?.Invoke(presenter);
         }
     }
 }

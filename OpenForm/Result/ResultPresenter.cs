@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenForm.Result
 {
-    class ResultPresenter
+    public class ResultPresenter
     {
         public DataSet data = new DataSet();
         public DataTable table = new DataTable();
