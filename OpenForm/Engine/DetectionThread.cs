@@ -37,7 +37,7 @@ namespace OpenForm.Engine
                 try
                 {
                     Template.Preprocessor preprocessor = new Template.Preprocessor(new Template.Preprocessor.PageMarksConfig() { MaxArea = detectionTemplate.MaxMarkArea, MinArea = detectionTemplate.MinMarkArea, MostBottomOffset = detectionTemplate.SearchBottomOffset, MostLeftOffset = detectionTemplate.SearchLeftOffset, MostRightOffset = detectionTemplate.SearchRightOffset, MostTopOffset = detectionTemplate.SearchTopOffset, RatioLowerBound = detectionTemplate.RatioLBound, RatioUpperBound = detectionTemplate.RatioUBound });
-                    preprocessor.beginProcess(file);
+                    preprocessor.beginProcess(file, true);
                     Template.Detector detector = new Template.Detector(detectionTemplate, preprocessor.originalThresholded, resMan, presenter);
                     detector.run();
                     detector.Dispose();

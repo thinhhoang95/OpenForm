@@ -37,7 +37,7 @@ namespace OpenForm
                 setRecognitionSettingsToDetectionTemplate();
                 preprocessor.pageMarksConfig = new Preprocessor.PageMarksConfig() { MaxArea = detectionTemplate.MaxMarkArea, MinArea = detectionTemplate.MinMarkArea, MostLeftOffset = detectionTemplate.SearchLeftOffset, MostRightOffset = detectionTemplate.SearchRightOffset, MostTopOffset = detectionTemplate.SearchTopOffset, MostBottomOffset = detectionTemplate.SearchBottomOffset, RatioLowerBound = detectionTemplate.RatioLBound, RatioUpperBound = detectionTemplate.RatioUBound } ;
                 string file = openFileDialog.FileName;
-                preprocessor.beginProcess(file);
+                preprocessor.beginProcess(file, false);
                 preprocessor.saveProcessedImage();
                 previewImage = preprocessor.originalThresholded.Clone();
                 MessageBox.Show("Please check the application folder to see cv_template.jpg file. Open this file with IrfanView and add detection fields using the fields below.", "Process completed", MessageBoxButtons.OK, MessageBoxIcon.Information);

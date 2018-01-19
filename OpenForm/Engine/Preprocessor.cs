@@ -45,7 +45,7 @@ namespace OpenForm.Template
             this.pageMarksConfig = pmc;
         }
         
-        public void beginProcess(string ImageURL)
+        public void beginProcess(string ImageURL, bool enableThrowException)
         {
             loadImage(ImageURL);
             int count = detectPageMarks();
@@ -55,7 +55,7 @@ namespace OpenForm.Template
                 {
                     OnInvalidPageMarksDetected.Invoke();
                 }
-                throw new Exception("Invalid page marks detected");
+                if (enableThrowException) throw new Exception("Invalid page marks detected");
             } else
             finalDeskewCropAndResize();
         }
@@ -101,7 +101,7 @@ namespace OpenForm.Template
                     else if (rect.X > thresholded.Width * pageMarksConfig.MostRightOffset && rect.Y < thresholded.Height * pageMarksConfig.MostTopOffset && checkIfPageMarkIsFilled(rect))
                     {
                         // Top-right mark
-                        pageMarks[1] = new Point(rect.X, rect.Y);
+                        pageMarks[1] = new Point(rect.X+rect.Width, rect.Y);
                         Console.WriteLine("Found top-right mark at " + rect.X + " " + rect.Y);
                         Console.WriteLine("Size is: " + rect.Size.Width + " x " + rect.Size.Height);
                         pageMarksCount++;
@@ -109,7 +109,7 @@ namespace OpenForm.Template
                     else if (rect.X < thresholded.Width * pageMarksConfig.MostLeftOffset && rect.Y > thresholded.Height * pageMarksConfig.MostBottomOffset && checkIfPageMarkIsFilled(rect))
                     {
                         // Bottom-left mark
-                        pageMarks[2] = new Point(rect.X, rect.Y);
+                        pageMarks[2] = new Point(rect.X, rect.Y+rect.Height);
                         Console.WriteLine("Found bottom-left mark at " + rect.X + " " + rect.Y);
                         Console.WriteLine("Size is: " + rect.Size.Width + " x " + rect.Size.Height);
                         pageMarksCount++;
@@ -117,7 +117,7 @@ namespace OpenForm.Template
                     else if (rect.X > thresholded.Width * pageMarksConfig.MostRightOffset && rect.Y > thresholded.Height * pageMarksConfig.MostBottomOffset && checkIfPageMarkIsFilled(rect))
                     {
                         // Bottom right mark
-                        pageMarks[3] = new Point(rect.X, rect.Y);
+                        pageMarks[3] = new Point(rect.X+rect.Width, rect.Y+rect.Height);
                         Console.WriteLine("Found bottom-right mark at " + rect.X + " " + rect.Y);
                         Console.WriteLine("Size is: " + rect.Size.Width + " x " + rect.Size.Height);
                         pageMarksCount++;
@@ -155,24 +155,32 @@ namespace OpenForm.Template
 
         private void finalDeskewCropAndResize()
         {
-            // Deskewing
-            double phi1 = Math.Atan((pageMarks[1].Y - pageMarks[0].Y) / (pageMarks[1].X - pageMarks[0].X));
+            // Page rotation - currently not used
+            /*double phi1 = Math.Atan((double)(pageMarks[1].Y - pageMarks[0].Y) / (double)(pageMarks[1].X - pageMarks[0].X));
             Console.WriteLine("Deskew angle phi: " + phi1);
-            double phi2 = Math.Atan((pageMarks[2].Y - pageMarks[3].Y) / (pageMarks[2].X - pageMarks[3].X));
-            double phi = (phi1 + phi2) / 2;
+            double phi2 = Math.Atan((double)(pageMarks[2].Y - pageMarks[3].Y) / (double)(pageMarks[2].X - pageMarks[3].X));
+            double phi = (-1) * (phi1 + phi2) / 2;
+            phi = phi * (180 / Math.PI);
             RotationMatrix2D rotMat = new RotationMatrix2D();
             CvInvoke.GetRotationMatrix2D(pageMarks[0], phi, 1, rotMat);
             CvInvoke.WarpAffine(thresholded, thresholded, rotMat, thresholded.Size);
-            CvInvoke.WarpAffine(originalThresholded, originalThresholded, rotMat, thresholded.Size);
+            CvInvoke.WarpAffine(originalThresholded, originalThresholded, rotMat, thresholded.Size);*/
+
+            // Homographic correction
+            PointF[] originalCorners = new PointF[] { new PointF(pageMarks[0].X,pageMarks[0].Y), new PointF(pageMarks[1].X, pageMarks[1].Y), new PointF(pageMarks[3].X, pageMarks[3].Y), new PointF(pageMarks[2].X, pageMarks[2].Y) };
+            PointF[] newCorners = new PointF[] { new PointF(pageMarks[0].X, pageMarks[0].Y), new PointF(pageMarks[1].X, pageMarks[1].Y), new PointF(pageMarks[1].X, pageMarks[3].Y), new PointF(pageMarks[0].X, pageMarks[3].Y) };
+            Mat homography = CvInvoke.FindHomography(originalCorners, newCorners, Emgu.CV.CvEnum.HomographyMethod.Default);
+            CvInvoke.WarpPerspective(thresholded, thresholded, homography, thresholded.Size);
+            CvInvoke.WarpPerspective(originalThresholded, originalThresholded, homography, thresholded.Size);
 
             // Cropping
-            originalThresholded = new Mat(originalThresholded, new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[2].Y - pageMarks[0].Y));
+            /*originalThresholded = new Mat(originalThresholded, new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[2].Y - pageMarks[0].Y));
             thresholded = new Mat(thresholded, new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[2].Y - pageMarks[0].Y));
             
 
             // Final resizing
             CvInvoke.Resize(originalThresholded, originalThresholded, new Size(2159, 3060));
-            CvInvoke.Resize(thresholded, thresholded, new Size(2159, 3060));
+            CvInvoke.Resize(thresholded, thresholded, new Size(2159, 3060));*/
 
             originalThresholdedImg = originalThresholded.ToImage<Emgu.CV.Structure.Bgr, Byte>();
             if (OnRequestDisplayUpdate != null) OnRequestDisplayUpdate.Invoke();

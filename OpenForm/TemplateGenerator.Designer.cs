@@ -64,6 +64,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.txtIdent = new System.Windows.Forms.TextBox();
             this.cbxFieldType = new System.Windows.Forms.ComboBox();
+            this.cbxResponseType = new System.Windows.Forms.ComboBox();
             this.btnAddField = new System.Windows.Forms.Button();
             this.lstFields = new System.Windows.Forms.ListBox();
             this.btnDeleteField = new System.Windows.Forms.Button();
@@ -71,7 +72,6 @@
             this.btnPreview = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.cbxResponseType = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrMinArea)).BeginInit();
@@ -175,7 +175,7 @@
             this.nmrMinArea.Size = new System.Drawing.Size(120, 20);
             this.nmrMinArea.TabIndex = 19;
             this.nmrMinArea.Value = new decimal(new int[] {
-            2200,
+            3000,
             0,
             0,
             0});
@@ -202,7 +202,7 @@
             this.nmrMaxArea.Size = new System.Drawing.Size(120, 20);
             this.nmrMaxArea.TabIndex = 19;
             this.nmrMaxArea.Value = new decimal(new int[] {
-            2500,
+            9000,
             0,
             0,
             0});
@@ -372,10 +372,10 @@
             this.nmrRatioLBound.Size = new System.Drawing.Size(120, 20);
             this.nmrRatioLBound.TabIndex = 27;
             this.nmrRatioLBound.Value = new decimal(new int[] {
-            95,
+            8,
             0,
             0,
-            131072});
+            65536});
             // 
             // label15
             // 
@@ -400,10 +400,10 @@
             this.nmrRatioUBound.Size = new System.Drawing.Size(120, 20);
             this.nmrRatioUBound.TabIndex = 29;
             this.nmrRatioUBound.Value = new decimal(new int[] {
-            105,
+            12,
             0,
             0,
-            131072});
+            65536});
             // 
             // preprocessBtn
             // 
@@ -556,6 +556,18 @@
             this.cbxFieldType.TabIndex = 20;
             this.cbxFieldType.Text = "QUESTION_ROW";
             // 
+            // cbxResponseType
+            // 
+            this.cbxResponseType.FormattingEnabled = true;
+            this.cbxResponseType.Items.AddRange(new object[] {
+            "NUMERIC",
+            "ALPHABETIC"});
+            this.cbxResponseType.Location = new System.Drawing.Point(6, 667);
+            this.cbxResponseType.Name = "cbxResponseType";
+            this.cbxResponseType.Size = new System.Drawing.Size(121, 21);
+            this.cbxResponseType.TabIndex = 21;
+            this.cbxResponseType.Text = "NUMERIC";
+            // 
             // btnAddField
             // 
             this.btnAddField.Location = new System.Drawing.Point(298, 12);
@@ -613,18 +625,6 @@
             // 
             this.saveFileDialog.DefaultExt = "ofr";
             this.saveFileDialog.Filter = "OpenForm Templates|*.ofr";
-            // 
-            // cbxResponseType
-            // 
-            this.cbxResponseType.FormattingEnabled = true;
-            this.cbxResponseType.Items.AddRange(new object[] {
-            "NUMERIC",
-            "ALPHABETIC"});
-            this.cbxResponseType.Location = new System.Drawing.Point(6, 667);
-            this.cbxResponseType.Name = "cbxResponseType";
-            this.cbxResponseType.Size = new System.Drawing.Size(121, 21);
-            this.cbxResponseType.TabIndex = 21;
-            this.cbxResponseType.Text = "NUMERIC";
             // 
             // TemplateGenerator
             // 
