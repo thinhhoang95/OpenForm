@@ -174,15 +174,17 @@ namespace OpenForm.Template
             CvInvoke.WarpPerspective(originalThresholded, originalThresholded, homography, thresholded.Size);
 
             // Cropping
-            /*originalThresholded = new Mat(originalThresholded, new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[2].Y - pageMarks[0].Y));
-            thresholded = new Mat(thresholded, new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[2].Y - pageMarks[0].Y));
+            Rectangle roi = new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[3].Y - pageMarks[0].Y);
+            originalThresholded = new Mat(originalThresholded, roi);
+            thresholded = new Mat(thresholded, roi);
             
 
             // Final resizing
             CvInvoke.Resize(originalThresholded, originalThresholded, new Size(2159, 3060));
-            CvInvoke.Resize(thresholded, thresholded, new Size(2159, 3060));*/
+            CvInvoke.Resize(thresholded, thresholded, new Size(2159, 3060));
 
             originalThresholdedImg = originalThresholded.ToImage<Emgu.CV.Structure.Bgr, Byte>();
+            homography.Dispose();
             if (OnRequestDisplayUpdate != null) OnRequestDisplayUpdate.Invoke();
         }
 

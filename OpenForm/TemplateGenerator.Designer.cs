@@ -72,6 +72,7 @@
             this.btnPreview = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnExtension = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrMinArea)).BeginInit();
@@ -109,6 +110,7 @@
             this.flowLayoutPanel1.Controls.Add(this.btnDeleteField);
             this.flowLayoutPanel1.Controls.Add(this.btnSaveTpl);
             this.flowLayoutPanel1.Controls.Add(this.btnPreview);
+            this.flowLayoutPanel1.Controls.Add(this.btnExtension);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -626,6 +628,16 @@
             this.saveFileDialog.DefaultExt = "ofr";
             this.saveFileDialog.Filter = "OpenForm Templates|*.ofr";
             // 
+            // btnExtension
+            // 
+            this.btnExtension.Location = new System.Drawing.Point(298, 247);
+            this.btnExtension.Name = "btnExtension";
+            this.btnExtension.Size = new System.Drawing.Size(112, 23);
+            this.btnExtension.TabIndex = 22;
+            this.btnExtension.Text = "EXT Phieu dang ky";
+            this.btnExtension.UseVisualStyleBackColor = true;
+            this.btnExtension.Click += new System.EventHandler(this.btnExtension_Click);
+            // 
             // TemplateGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -702,5 +714,6 @@
         private System.Windows.Forms.Button btnPreview;
         private System.Windows.Forms.ComboBox cbxFieldType;
         private System.Windows.Forms.ComboBox cbxResponseType;
+        private System.Windows.Forms.Button btnExtension;
     }
 }

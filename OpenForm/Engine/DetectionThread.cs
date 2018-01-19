@@ -38,7 +38,9 @@ namespace OpenForm.Engine
                 {
                     Template.Preprocessor preprocessor = new Template.Preprocessor(new Template.Preprocessor.PageMarksConfig() { MaxArea = detectionTemplate.MaxMarkArea, MinArea = detectionTemplate.MinMarkArea, MostBottomOffset = detectionTemplate.SearchBottomOffset, MostLeftOffset = detectionTemplate.SearchLeftOffset, MostRightOffset = detectionTemplate.SearchRightOffset, MostTopOffset = detectionTemplate.SearchTopOffset, RatioLowerBound = detectionTemplate.RatioLBound, RatioUpperBound = detectionTemplate.RatioUBound });
                     preprocessor.beginProcess(file, true);
+                    preprocessor.saveProcessedImage();
                     Template.Detector detector = new Template.Detector(detectionTemplate, preprocessor.originalThresholded, resMan, presenter);
+                    // Emgu.CV.CvInvoke.Imwrite("original_thresholded.jpg", preprocessor.originalThresholded);
                     detector.run();
                     detector.Dispose();
                     preprocessor.finalise();

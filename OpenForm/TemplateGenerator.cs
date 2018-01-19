@@ -160,5 +160,12 @@ namespace OpenForm
         {
             previewImage.Dispose();
         }
+
+        private void btnExtension_Click(object sender, EventArgs e)
+        {
+            Extensions.FormPhieuDangKy extForm = new Extensions.FormPhieuDangKy();
+            this.detectionTemplate = extForm.template;
+            MessageBox.Show("Extension is completed");
+        }
     }
 }

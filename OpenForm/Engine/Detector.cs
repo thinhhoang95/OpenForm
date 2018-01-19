@@ -82,10 +82,14 @@ namespace OpenForm.Template
                     dh.Row = i;
                     dh.Ident = f.Ident;
                     dh.Score = (int)recognizeCell(f.TopLeft.X + f.Size.Width * j / f.NumOfCols, Math.Min(f.TopLeft.X + f.Size.Width * (j + 1) / f.NumOfCols, convertedWThreshold.Width - 1), f.TopLeft.Y + f.Size.Height * i / f.NumOfRows, Math.Min(f.TopLeft.Y + f.Size.Height * (i + 1) / f.NumOfRows, convertedWThreshold.Height - 1));
+
                     // Console.WriteLine("Cell " + dh.Ident + " @" + dh.Row + "/" + dh.Col + ": " + dh.Score);
                     resultManager.Result.Add(dh);
                 }
             }
+
+            // CAUTION! Please comment out these lines to prevent drawing on the picture
+            CvInvoke.Imwrite("cv_test_file.jpg", convertedWThreshold);
         }
 
         private float recognizeCell(int Xi, int Xf, int Yi, int Yf)
@@ -103,6 +107,11 @@ namespace OpenForm.Template
                         blackPix = blackPix + 1.0f;
                     }
                 }
+            }
+            // CAUTION! Please comment out these lines to prevent drawing on the picture
+            if (blackPix > 900)
+            {
+                CvInvoke.Rectangle(convertedWThreshold, new System.Drawing.Rectangle(Xi, Yi, Xf - Xi, Yf - Yi), new Emgu.CV.Structure.MCvScalar(255, 0, 0));
             }
             return blackPix;
         }
