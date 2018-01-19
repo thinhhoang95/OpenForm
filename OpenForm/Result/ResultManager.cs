@@ -30,5 +30,9 @@ namespace OpenForm.Result
             Response r = Result.FindAll(x => x.Ident == ident && x.Col == col).OrderByDescending(x => x.Score).First();
             if (r.Score > threshold) return r.Row; else return -1;
         }
+        public int getCount(string ident)
+        {
+            return Result.FindAll(x => x.Ident == ident && x.Score > threshold).Count;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +19,16 @@ namespace OpenForm.Engine
         public delegate void PresentationCallback(Result.ResultPresenter presenter);
         DetectionCallback dCall;
         PresentationCallback pCall;
+        bool saveRecognitionResult;
 
-        public DetectionThread(Detection.DetectionTemplate dtpl, int threshold, string[] FileNames, DetectionCallback caller, PresentationCallback pCall)
+        public DetectionThread(Detection.DetectionTemplate dtpl, int threshold, string[] FileNames, DetectionCallback caller, PresentationCallback pCall, bool saveRecognitionResult)
         {
             this.detectionTemplate = dtpl;
             this.threshold = threshold;
             this.FileNames = FileNames;
             this.dCall = caller;
             this.pCall = pCall;
+            this.saveRecognitionResult = saveRecognitionResult;
         }
 
         public void startDetectionProcess()
@@ -40,7 +43,13 @@ namespace OpenForm.Engine
                     preprocessor.beginProcess(file, true);
                     preprocessor.saveProcessedImage();
                     Template.Detector detector = new Template.Detector(detectionTemplate, preprocessor.originalThresholded, resMan, presenter);
-                    // Emgu.CV.CvInvoke.Imwrite("original_thresholded.jpg", preprocessor.originalThresholded);
+                    // Allow saving recognition results along with original image file
+                    if(saveRecognitionResult)
+                    {
+                        detector.saveRecognitionResult = true;
+                        detector.thresholdValue = threshold;
+                        detector.destinationPath = Path.GetDirectoryName(file)+"\\_"+Path.GetFileName(file);
+                    }
                     detector.run();
                     detector.Dispose();
                     preprocessor.finalise();

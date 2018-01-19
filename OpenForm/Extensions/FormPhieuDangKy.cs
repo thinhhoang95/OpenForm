@@ -25,14 +25,16 @@ namespace OpenForm.Extensions
             template.RatioLBound = 0.8;
 
             // Page 1, left column
-            fieldWithMarginVertical(4, 901, 2842, 479, 110, 17, "LNgay", 10, 2);
-            fieldWithMarginVertical(514, 901, 2842, 232, 106, 17, "LMonHoc", 5, 2);
-            fieldWithMarginVertical(768, 901, 2842, 272, 106, 17, "LSoTietHoanThanh", 6, 2);
+            fieldWithMarginVertical(4, 901, 2842, 479, 110, 17, "LNgay", 10, 2, "QUESTION_ROW");
+            fieldWithMarginVertical(514, 901, 2842, 232, 106, 17, "LMonHoc", 5, 2, "QUESTION_ROW");
+            fieldWithMarginVertical(768, 901, 2842, 270, 54, 17, "LSoTiet", 6, 1, "QUESTION_ROW");
+            fieldWithMarginVertical(768, 952, 2897, 270, 54, 17, "LHoanThanh", 6, 1, "COUNT");
 
             // Page 1, right column
-            fieldWithMarginVertical(1089, 901, 2842, 479, 110, 17, "RNgay", 10, 2);
-            fieldWithMarginVertical(1590, 901, 2842, 232, 106, 17, "RMonHoc", 5, 2);
-            fieldWithMarginVertical(1839, 901, 2842, 272, 106, 17, "RSoTietHoanThanh", 6, 2);
+            fieldWithMarginVertical(1089, 901, 2842, 479, 110, 17, "RNgay", 10, 2, "QUESTION_ROW");
+            fieldWithMarginVertical(1590, 901, 2842, 232, 106, 17, "RMonHoc", 5, 2, "QUESTION_ROW");
+            fieldWithMarginVertical(1839, 901, 2842, 272, 51, 17, "RSoTiet", 6, 1, "QUESTION_ROW");
+            fieldWithMarginVertical(1839, 949, 2900, 274, 53, 17, "RHoanThanh", 6, 1, "COUNT");
 
             // Identification number
             addIdentificationNumberField();
@@ -41,12 +43,12 @@ namespace OpenForm.Extensions
             saveTemplate();
         }
 
-        private void fieldWithMarginVertical(int topX, int topY, int bottomY, int width, int height, int numOfFields, string identPrefix, int numOfCols, int numOfRows)
+        private void fieldWithMarginVertical(int topX, int topY, int bottomY, int width, int height, int numOfFields, string identPrefix, int numOfCols, int numOfRows, string fieldType)
         {
             for (int i = 1; i <= numOfFields; i++)
             {
                 Detection.DetectionField f = new Detection.DetectionField();
-                f.FieldType = "QUESTION_ROW";
+                f.FieldType = fieldType;
                 f.Ident = identPrefix+"_"+i;
                 f.NumOfCols = numOfCols;
                 f.NumOfRows = numOfRows;

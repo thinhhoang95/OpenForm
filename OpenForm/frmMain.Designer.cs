@@ -31,14 +31,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.templateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.templateCreateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.templateFileGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detectNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showDetailOfSelectedRowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openGradeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.openGradeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openApplicationFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -81,18 +81,10 @@
             // 
             // templateCreateToolStripMenuItem
             // 
-            this.templateCreateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.templateFileGeneratorToolStripMenuItem});
             this.templateCreateToolStripMenuItem.Name = "templateCreateToolStripMenuItem";
             this.templateCreateToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
             this.templateCreateToolStripMenuItem.Text = "Template create";
-            // 
-            // templateFileGeneratorToolStripMenuItem
-            // 
-            this.templateFileGeneratorToolStripMenuItem.Name = "templateFileGeneratorToolStripMenuItem";
-            this.templateFileGeneratorToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.templateFileGeneratorToolStripMenuItem.Text = "Template file generator";
-            this.templateFileGeneratorToolStripMenuItem.Click += new System.EventHandler(this.templateFileGeneratorToolStripMenuItem_Click);
+            this.templateCreateToolStripMenuItem.Click += new System.EventHandler(this.templateCreateToolStripMenuItem_Click);
             // 
             // quitToolStripMenuItem
             // 
@@ -116,6 +108,29 @@
             this.detectNowToolStripMenuItem.Text = "Detect now";
             this.detectNowToolStripMenuItem.Click += new System.EventHandler(this.detectNowToolStripMenuItem_Click);
             // 
+            // actionToolStripMenuItem
+            // 
+            this.actionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showDetailOfSelectedRowToolStripMenuItem,
+            this.openGradeToolStripMenuItem,
+            this.openApplicationFolderToolStripMenuItem});
+            this.actionToolStripMenuItem.Name = "actionToolStripMenuItem";
+            this.actionToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.actionToolStripMenuItem.Text = "Action";
+            // 
+            // showDetailOfSelectedRowToolStripMenuItem
+            // 
+            this.showDetailOfSelectedRowToolStripMenuItem.Name = "showDetailOfSelectedRowToolStripMenuItem";
+            this.showDetailOfSelectedRowToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.showDetailOfSelectedRowToolStripMenuItem.Text = "Show detail of selected row";
+            this.showDetailOfSelectedRowToolStripMenuItem.Click += new System.EventHandler(this.showDetailOfSelectedRowToolStripMenuItem_Click);
+            // 
+            // openGradeToolStripMenuItem
+            // 
+            this.openGradeToolStripMenuItem.Name = "openGradeToolStripMenuItem";
+            this.openGradeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openGradeToolStripMenuItem.Text = "OpenGrade";
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -130,22 +145,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // actionToolStripMenuItem
-            // 
-            this.actionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showDetailOfSelectedRowToolStripMenuItem,
-            this.openGradeToolStripMenuItem});
-            this.actionToolStripMenuItem.Name = "actionToolStripMenuItem";
-            this.actionToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
-            this.actionToolStripMenuItem.Text = "Action";
-            // 
-            // showDetailOfSelectedRowToolStripMenuItem
-            // 
-            this.showDetailOfSelectedRowToolStripMenuItem.Name = "showDetailOfSelectedRowToolStripMenuItem";
-            this.showDetailOfSelectedRowToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.showDetailOfSelectedRowToolStripMenuItem.Text = "Show detail of selected row";
-            this.showDetailOfSelectedRowToolStripMenuItem.Click += new System.EventHandler(this.showDetailOfSelectedRowToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -263,11 +262,12 @@
             this.openFileDialog2.FileName = "openFileDialog2";
             this.openFileDialog2.Multiselect = true;
             // 
-            // openGradeToolStripMenuItem
+            // openApplicationFolderToolStripMenuItem
             // 
-            this.openGradeToolStripMenuItem.Name = "openGradeToolStripMenuItem";
-            this.openGradeToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.openGradeToolStripMenuItem.Text = "OpenGrade";
+            this.openApplicationFolderToolStripMenuItem.Name = "openApplicationFolderToolStripMenuItem";
+            this.openApplicationFolderToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.openApplicationFolderToolStripMenuItem.Text = "Open Application Folder";
+            this.openApplicationFolderToolStripMenuItem.Click += new System.EventHandler(this.openApplicationFolderToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -301,7 +301,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem templateCreateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem templateFileGeneratorToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label label1;
@@ -316,6 +315,7 @@
         private System.Windows.Forms.ToolStripMenuItem actionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showDetailOfSelectedRowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openGradeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openApplicationFolderToolStripMenuItem;
     }
 }
 

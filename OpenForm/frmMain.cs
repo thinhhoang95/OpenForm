@@ -26,12 +26,6 @@ namespace OpenForm
             InitializeComponent();
         }
 
-        private void templateFileGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TemplateGenerator tplGen = new TemplateGenerator();
-            tplGen.Show();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -61,9 +55,17 @@ namespace OpenForm
 
         private void detectNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            bool saveRecognitionResult;
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
             {
-                Engine.DetectionThread dThread = new Engine.DetectionThread(detectionTemplate, int.Parse(txtThreshold.Text), openFileDialog2.FileNames, updateGrid, updatePresenter);
+                if (MessageBox.Show("Do you want to save the recognition results along with the file? Usually, the answer is NO.", "Save recognition results", MessageBoxButtons.YesNo)==DialogResult.Yes)
+                {
+                    saveRecognitionResult = true;
+                } else
+                {
+                    saveRecognitionResult = false;
+                }
+                Engine.DetectionThread dThread = new Engine.DetectionThread(detectionTemplate, int.Parse(txtThreshold.Text), openFileDialog2.FileNames, updateGrid, updatePresenter, saveRecognitionResult);
                 ThreadStart detectThreadStart = new ThreadStart(dThread.startDetectionProcess);
                 Thread detectThread = new Thread(detectThreadStart);
 
@@ -122,6 +124,18 @@ namespace OpenForm
                 frmViewResponse responseView = new frmViewResponse(r, columns);
                 responseView.Show();
             }
+        }
+
+        private void openApplicationFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            System.Diagnostics.Process.Start(path);
+        }
+
+        private void templateCreateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TemplateGenerator tplGen = new TemplateGenerator();
+            tplGen.Show();
         }
     }
 }

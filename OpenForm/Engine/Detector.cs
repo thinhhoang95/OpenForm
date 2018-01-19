@@ -15,6 +15,14 @@ namespace OpenForm.Template
         public Detection.DetectionTemplate detectionTemplate { get; set; }
         public Result.ResultPresenter presenter { get; set; }
         private Image<Emgu.CV.Structure.Bgr, Byte> convertedWThreshold;
+
+        
+        // These parameters are for saving recognition result along with the original image file
+        public bool saveRecognitionResult { get; set; }
+        public int thresholdValue { get; set; }
+        public string destinationPath { get; set; }
+
+
         public Detector(Detection.DetectionTemplate dtpl, Mat processingImage, Result.ResultManager resMan, Result.ResultPresenter presenter)
         {
             detectionTemplate = dtpl;
@@ -28,7 +36,9 @@ namespace OpenForm.Template
             presenter.addRow();
             foreach(Detection.DetectionField f in detectionTemplate.Fields)
             {
+                // Recognize all cells if marked or not
                 allCellsRecognize(f);
+                // Begin interpreting recognition result into explanatory format
                 switch (f.FieldType)
                 {
                     case "QUESTION_ROW":
@@ -67,8 +77,23 @@ namespace OpenForm.Template
                             }
                         }
                         break;
+                    case "COUNT":
+                        for (int i = 0; i < f.NumOfRows; i++)
+                        {
+                            for (int k = 0; k < f.NumOfCols; k++)
+                            {
+                                string colName = f.Ident;
+                                presenter.addCol(colName);
+                                string valToSet;
+                                valToSet = resultManager.getCount(colName).ToString();
+                                presenter.setVal(colName, valToSet);
+                            }
+                        }
+                        break;
                 }
             }
+            // Saving recognition result to file
+            if (saveRecognitionResult) CvInvoke.Imwrite(destinationPath, convertedWThreshold);
         }
 
         private void allCellsRecognize(Detection.DetectionField f)
@@ -87,9 +112,6 @@ namespace OpenForm.Template
                     resultManager.Result.Add(dh);
                 }
             }
-
-            // CAUTION! Please comment out these lines to prevent drawing on the picture
-            CvInvoke.Imwrite("cv_test_file.jpg", convertedWThreshold);
         }
 
         private float recognizeCell(int Xi, int Xf, int Yi, int Yf)
@@ -109,7 +131,7 @@ namespace OpenForm.Template
                 }
             }
             // CAUTION! Please comment out these lines to prevent drawing on the picture
-            if (blackPix > 900)
+            if (saveRecognitionResult && blackPix > thresholdValue)
             {
                 CvInvoke.Rectangle(convertedWThreshold, new System.Drawing.Rectangle(Xi, Yi, Xf - Xi, Yf - Yi), new Emgu.CV.Structure.MCvScalar(255, 0, 0));
             }

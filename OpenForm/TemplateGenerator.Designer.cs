@@ -70,9 +70,9 @@
             this.btnDeleteField = new System.Windows.Forms.Button();
             this.btnSaveTpl = new System.Windows.Forms.Button();
             this.btnPreview = new System.Windows.Forms.Button();
+            this.btnExtension = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.btnExtension = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nmrMinArea)).BeginInit();
@@ -550,7 +550,8 @@
             this.cbxFieldType.Items.AddRange(new object[] {
             "QUESTION_ROW",
             "QUESTION_COL",
-            "CELL"});
+            "CELL",
+            "COUNT"});
             this.cbxFieldType.Location = new System.Drawing.Point(6, 640);
             this.cbxFieldType.Margin = new System.Windows.Forms.Padding(3, 6, 3, 3);
             this.cbxFieldType.Name = "cbxFieldType";
@@ -623,11 +624,6 @@
             this.btnPreview.UseVisualStyleBackColor = true;
             this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
             // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "ofr";
-            this.saveFileDialog.Filter = "OpenForm Templates|*.ofr";
-            // 
             // btnExtension
             // 
             this.btnExtension.Location = new System.Drawing.Point(298, 247);
@@ -637,6 +633,11 @@
             this.btnExtension.Text = "EXT Phieu dang ky";
             this.btnExtension.UseVisualStyleBackColor = true;
             this.btnExtension.Click += new System.EventHandler(this.btnExtension_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "ofr";
+            this.saveFileDialog.Filter = "OpenForm Templates|*.ofr";
             // 
             // TemplateGenerator
             // 
