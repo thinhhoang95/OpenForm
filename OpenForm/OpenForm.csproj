@@ -85,6 +85,7 @@
     <Compile Include="Detection\DetectionTemplate.cs" />
     <Compile Include="Engine\DetectionThread.cs" />
     <Compile Include="Extensions\FormPhieuDangKy.cs" />
+    <Compile Include="Extensions\FormPhieuDangKyB.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

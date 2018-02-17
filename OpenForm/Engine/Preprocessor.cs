@@ -34,7 +34,7 @@ namespace OpenForm.Template
         public PageMarksConfig pageMarksConfig;
         private Emgu.CV.Structure.MCvScalar redColor = new Emgu.CV.Structure.MCvScalar(0, 0, 255);
         Image<Emgu.CV.Structure.Bgr, Byte> originalThresholdedImg;
-        Image<Emgu.CV.Structure.Bgr, Byte> convertedWThreshold;
+        Image<Emgu.CV.Structure.Bgr, Byte> convertedWThreshold; // To count white pixels
 
         // Event reception
         public event GeneralEventHandlers.VoidHandler OnInvalidPageMarksDetected;
@@ -86,9 +86,8 @@ namespace OpenForm.Template
                 if (pageMarksConfig.RatioLowerBound < k && k < pageMarksConfig.RatioUpperBound && rect.Height * rect.Width > pageMarksConfig.MinArea && rect.Height * rect.Width < pageMarksConfig.MaxArea)
                 {
                     // Console.WriteLine("Found contour! "+rect.X+" "+rect.Y);
-                    CvInvoke.DrawContours(originalThresholded, contours, i, redColor);
-
-
+                    CvInvoke.Rectangle(originalThresholded, rect, redColor);
+                    // CvInvoke.DrawContours(originalThresholded, contours, i, 
 
                     if (rect.X < thresholded.Width * pageMarksConfig.MostLeftOffset && rect.Y < thresholded.Height * pageMarksConfig.MostTopOffset && checkIfPageMarkIsFilled(rect))
                     {
@@ -124,7 +123,7 @@ namespace OpenForm.Template
                     }
                 }
             }
-            // CvInvoke.Imwrite("test_run.jpg",thresholded);
+            // CvInvoke.Imwrite("test_run.jpg",originalThresholded); // ----> PLEASE COMMENT THIS OUT <----
             convertedWThreshold.Dispose();
             return pageMarksCount;
         }
@@ -167,14 +166,16 @@ namespace OpenForm.Template
             CvInvoke.WarpAffine(originalThresholded, originalThresholded, rotMat, thresholded.Size);*/
 
             // Homographic correction
-            PointF[] originalCorners = new PointF[] { new PointF(pageMarks[0].X,pageMarks[0].Y), new PointF(pageMarks[1].X, pageMarks[1].Y), new PointF(pageMarks[3].X, pageMarks[3].Y), new PointF(pageMarks[2].X, pageMarks[2].Y) };
-            PointF[] newCorners = new PointF[] { new PointF(pageMarks[0].X, pageMarks[0].Y), new PointF(pageMarks[1].X, pageMarks[1].Y), new PointF(pageMarks[1].X, pageMarks[3].Y), new PointF(pageMarks[0].X, pageMarks[3].Y) };
+            PointF[] originalCorners = new PointF[] { new PointF(pageMarks[0].X,pageMarks[0].Y), new PointF(pageMarks[1].X, pageMarks[1].Y), new PointF(pageMarks[2].X, pageMarks[2].Y), new PointF(pageMarks[3].X, pageMarks[3].Y) };
+            PointF[] newCorners = new PointF[] { new PointF(pageMarks[0].X, pageMarks[0].Y), new PointF(pageMarks[1].X, pageMarks[0].Y), new PointF(pageMarks[0].X, pageMarks[2].Y), new PointF(pageMarks[1].X, pageMarks[2].Y) };
             Mat homography = CvInvoke.FindHomography(originalCorners, newCorners, Emgu.CV.CvEnum.HomographyMethod.Default);
             CvInvoke.WarpPerspective(thresholded, thresholded, homography, thresholded.Size);
             CvInvoke.WarpPerspective(originalThresholded, originalThresholded, homography, thresholded.Size);
 
+            // CvInvoke.Imwrite("test_run.jpg", originalThresholded);
+
             // Cropping
-            Rectangle roi = new Rectangle(pageMarks[0].X, pageMarks[0].Y, pageMarks[1].X - pageMarks[0].X, pageMarks[3].Y - pageMarks[0].Y);
+            Rectangle roi = new Rectangle((int)newCorners[0].X, (int)newCorners[0].Y, (int)(newCorners[1].X - newCorners[0].X), (int)(newCorners[2].Y-newCorners[0].Y));
             originalThresholded = new Mat(originalThresholded, roi);
             thresholded = new Mat(thresholded, roi);
             

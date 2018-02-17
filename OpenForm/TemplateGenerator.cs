@@ -163,7 +163,7 @@ namespace OpenForm
 
         private void btnExtension_Click(object sender, EventArgs e)
         {
-            Extensions.FormPhieuDangKy extForm = new Extensions.FormPhieuDangKy();
+            Extensions.FormPhieuDangKyB extForm = new Extensions.FormPhieuDangKyB();
             this.detectionTemplate = extForm.template;
             MessageBox.Show("Extension is completed");
         }
